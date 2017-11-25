@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWorkDB", "CourseWorkDB\CourseWorkDB.csproj", "{0148C4C3-A406-415A-98A2-21E698BB57B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWorkDB.DAL", "CourseWorkDB.DAL\CourseWorkDB.DAL.csproj", "{F88CB49C-89DB-41F1-A02C-42307AACC3DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0148C4C3-A406-415A-98A2-21E698BB57B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0148C4C3-A406-415A-98A2-21E698BB57B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0148C4C3-A406-415A-98A2-21E698BB57B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F88CB49C-89DB-41F1-A02C-42307AACC3DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88CB49C-89DB-41F1-A02C-42307AACC3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88CB49C-89DB-41F1-A02C-42307AACC3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88CB49C-89DB-41F1-A02C-42307AACC3DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
