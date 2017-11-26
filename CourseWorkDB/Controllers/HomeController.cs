@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using CourseWorkDB.DAL.EF;
 
 namespace CourseWorkDB.Controllers
 {
