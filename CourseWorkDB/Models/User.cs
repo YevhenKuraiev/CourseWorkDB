@@ -40,12 +40,5 @@ namespace CourseWorkDB.Models
         [Display(Name = "Сумма потраченных денег")]
         [Range (0, 100000000000, ErrorMessage = "Сумма не должна быть отрицательной")]
         public decimal TotalSpentMoney { get; set; }
-
-        public User()
-        {
-                
-        }
     }
-
-
 }

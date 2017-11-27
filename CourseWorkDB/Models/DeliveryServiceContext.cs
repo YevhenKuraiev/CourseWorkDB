@@ -22,32 +22,27 @@ namespace CourseWorkDB.Models
                 {
                     Id = 0,
                     DiscountInPercent = 6,
-                    Email = "dfkkfjg#flgkfkjgk@dv.com",
-                    Name = "Jack",
+                    Email = "top.down@user.com",
+                    Name = "Владик",
                     Password = "454646",
-                    Patronymic = "gfgfgf",
-                    PhoneNumber = "249584954985945",
-                    Surname = "fgfhfh",
+                    Patronymic = "Юрьевич",
+                    PhoneNumber = "+380508475904",
+                    Surname = "Юрьевич",
                     TotalSpentMoney = 346
                 });
-                db.Dishes.Add(new Dish());
-                //db.DishCategory.Add(new DishCategory());
-                db.Restaurants.Add(new Restaurant());
+
                 db.Users.Add(new User
                 {
-                    Id = 0,
+                    Id = 1,
                     DiscountInPercent = 6,
-                    Email = "dfkkfjg#flgkfkjgk@dv.com",
+                    Email = "top.down@user.com",
                     Name = "Jack",
                     Password = "454646",
-                    Patronymic = "gfgfgf",
-                    PhoneNumber = "249584954985945",
-                    Surname = "fgfhfh",
+                    Patronymic = "Юрьевич",
+                    PhoneNumber = "+380508475904",
+                    Surname = "Юрьевич",
                     TotalSpentMoney = 346
                 });
-                db.Dishes.Add(new Dish());
-                //db.DishCategory.Add(new DishCategory());
-                db.Restaurants.Add(new Restaurant());
                 db.SaveChanges();
             }
         }
