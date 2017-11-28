@@ -46,7 +46,10 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Удалить" class="btn btn-danger" /> |
-            @Html.ActionLink("Вернуться назад к списку заказов", "Index")
+            <a href="@Url.Action("Index")">
+                <span class="glyphicon glyphicon-backward"></span>
+                Вернуться назад к списку заказов
+            </a>
         </div>
     }
 </div>

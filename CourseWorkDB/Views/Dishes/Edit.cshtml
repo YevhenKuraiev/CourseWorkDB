@@ -48,7 +48,10 @@
 }
 
 <div>
-    @Html.ActionLink("Вернуться назад к списку блюд", "Index")
+    <a href="@Url.Action("Index")">
+        <span class="glyphicon glyphicon-backward"></span>
+        Вернуться назад к списку категорий
+    </a>
 </div>
 
 @section Scripts {

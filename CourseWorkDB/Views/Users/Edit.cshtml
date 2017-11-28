@@ -89,7 +89,10 @@
 }
 
 <div>
-    @Html.ActionLink("Вернуться к списку пользователей", "Index")
+    <a href="@Url.Action("Index")">
+        <span class="glyphicon glyphicon-backward"></span>
+        Вернуться назад к списку пользователей
+    </a>
 </div>
 
 @section Scripts {
