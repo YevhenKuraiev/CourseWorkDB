@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseWorkDB.Models
 {
@@ -18,7 +20,12 @@ namespace CourseWorkDB.Models
         [Display(Name = "Цена")]
         [Range(1, 100000000, ErrorMessage = "Цена не может быть отрицательной")]
         public decimal Price { get; set; }
-        public DishCategory DishCategory { get; set; }
+        [Display(Name = "Номер категории")]
+        public int IdDishCategory { get; set; }
+
+        [ForeignKey("IdDishCategory")]
+        public IEnumerable<DishCategory> DishCategory { get; set; }
+
 
     }
 }

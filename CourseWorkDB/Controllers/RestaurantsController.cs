@@ -38,6 +38,8 @@ namespace CourseWorkDB.Controllers
         // GET: Restaurants/Create
         public ActionResult Create()
         {
+            ViewData["dishCategories"] = new SelectList(db.DishCategories, "Id", "Name");
+            ViewData["dishes"] = new SelectList(db.Dishes, "Id", "Name");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace CourseWorkDB.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Adrress,Rating")] Restaurant restaurant)
+        public ActionResult Create(Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -70,15 +72,15 @@ namespace CourseWorkDB.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["dishCategories"] = new SelectList(db.DishCategories, "Id", "Name");
+            ViewData["dishes"] = new SelectList(db.Dishes, "Id", "Name");
             return View(restaurant);
         }
 
         // POST: Restaurants/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Adrress,Rating")] Restaurant restaurant)
+        public ActionResult Edit(Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {

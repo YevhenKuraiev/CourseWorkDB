@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseWorkDB.Models
 {
@@ -20,7 +21,14 @@ namespace CourseWorkDB.Models
         [Range(1, 5, ErrorMessage = "Рейтинг не может быть меньше 1 и больше 5")]
         public string Rating { get; set; }
 
-        public virtual IList<DishCategory> DishCategories { get; set; }
-        public virtual IList<Dish> Dishes { get; set; }
+        public int IdDishCategory { get; set; }
+
+        [ForeignKey("IdDishCategory")]
+        public IEnumerable<DishCategory> DishCategories { get; set; }
+
+        public int IdDish { get; set; }
+
+        [ForeignKey("IdDish")]
+        public IEnumerable<Dish> Dishes { get; set; }
     }
 }
