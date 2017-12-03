@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
+using CourseWorkDB.DAL.Entities;
 
-namespace CourseWorkDB.Models
+namespace CourseWorkDB.DAL.EF
 {
     public class DeliveryServiceContext : DbContext
     {
@@ -9,6 +10,7 @@ namespace CourseWorkDB.Models
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<DishCategory> DishCategories { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public DeliveryServiceContext() : base("DeliveryService")
         {
@@ -233,6 +235,6 @@ namespace CourseWorkDB.Models
             }
         }
 
-        public System.Data.Entity.DbSet<CourseWorkDB.Models.Order> Orders { get; set; }
+        
     }
 }

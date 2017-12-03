@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CourseWorkDB.Models;
+using CourseWorkDB.DAL.Entities;
+using CourseWorkDB.DAL.Interfaces;
 
 namespace CourseWorkDB.Controllers
 {
     public class DishCategoriesController : Controller
     {
-        private DeliveryServiceContext db = new DeliveryServiceContext();
+        private readonly IGenericRepository<DishCategory> _db;
+
+        public DishCategoriesController(IGenericRepository<DishCategory> db)
+        {
+            _db = db;
+        }
 
         // GET: DishCategories
         public ActionResult Index()
         {
-            return View(db.DishCategories.ToList());
+            return View(_db.Get().ToList());
         }
 
         // GET: DishCategories/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DishCategory dishCategory = db.DishCategories.Find(id);
+            DishCategory dishCategory = _db.FindById(id);
             if (dishCategory == null)
             {
                 return HttpNotFound();
@@ -50,8 +48,7 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DishCategories.Add(dishCategory);
-                db.SaveChanges();
+                _db.Create(dishCategory);
                 return RedirectToAction("Index");
             }
 
@@ -59,13 +56,9 @@ namespace CourseWorkDB.Controllers
         }
 
         // GET: DishCategories/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DishCategory dishCategory = db.DishCategories.Find(id);
+            DishCategory dishCategory = _db.FindById(id);
             if (dishCategory == null)
             {
                 return HttpNotFound();
@@ -74,29 +67,22 @@ namespace CourseWorkDB.Controllers
         }
 
         // POST: DishCategories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] DishCategory dishCategory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dishCategory).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Update(dishCategory);
                 return RedirectToAction("Index");
             }
             return View(dishCategory);
         }
 
         // GET: DishCategories/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DishCategory dishCategory = db.DishCategories.Find(id);
+            DishCategory dishCategory = _db.FindById(id);
             if (dishCategory == null)
             {
                 return HttpNotFound();
@@ -109,19 +95,9 @@ namespace CourseWorkDB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DishCategory dishCategory = db.DishCategories.Find(id);
-            db.DishCategories.Remove(dishCategory);
-            db.SaveChanges();
+            DishCategory dishCategory = _db.FindById(id);
+            _db.Remove(dishCategory);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

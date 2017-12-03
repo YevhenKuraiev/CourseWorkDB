@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CourseWorkDB.Models
+namespace CourseWorkDB.DAL.Entities
 {
     public class DishCategory
     {

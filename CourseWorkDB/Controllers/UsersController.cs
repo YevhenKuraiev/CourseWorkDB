@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using CourseWorkDB.Models;
+using CourseWorkDB.DAL.Entities;
+using CourseWorkDB.DAL.Interfaces;
 
 namespace CourseWorkDB.Controllers
 {
     public class UsersController : Controller
     {
-        private DeliveryServiceContext db = new DeliveryServiceContext();
+        private readonly IGenericRepository<User> _db;
+
+        public UsersController(IGenericRepository<User> db)
+        {
+            _db = db;
+        }
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(_db.Get().ToList());
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
+            User user = _db.FindById(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -50,8 +46,7 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                _db.Create(user);
                 return RedirectToAction("Index");
             }
 
@@ -59,13 +54,9 @@ namespace CourseWorkDB.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
+            User user = _db.FindById(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -82,21 +73,16 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Update(user);
                 return RedirectToAction("Index");
             }
             return View(user);
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
+            User user = _db.FindById(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,19 +95,9 @@ namespace CourseWorkDB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+            User user = _db.FindById(id);
+            _db.Remove(user);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

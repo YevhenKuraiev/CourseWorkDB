@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWorkDB", "CourseWorkDB\CourseWorkDB.csproj", "{0148C4C3-A406-415A-98A2-21E698BB57B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWorkDB.DAL", "CourseWorkDB.DAL\CourseWorkDB.DAL.csproj", "{54C82391-537F-47FB-A007-4892AA1CC44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWorkDB.BLL", "CourseWorkDB.BLL\CourseWorkDB.BLL.csproj", "{0E0413EB-F46D-4DAB-829F-9C4F6EA9CAE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{0148C4C3-A406-415A-98A2-21E698BB57B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0148C4C3-A406-415A-98A2-21E698BB57B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0148C4C3-A406-415A-98A2-21E698BB57B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C82391-537F-47FB-A007-4892AA1CC44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C82391-537F-47FB-A007-4892AA1CC44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C82391-537F-47FB-A007-4892AA1CC44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C82391-537F-47FB-A007-4892AA1CC44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E0413EB-F46D-4DAB-829F-9C4F6EA9CAE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E0413EB-F46D-4DAB-829F-9C4F6EA9CAE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E0413EB-F46D-4DAB-829F-9C4F6EA9CAE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E0413EB-F46D-4DAB-829F-9C4F6EA9CAE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

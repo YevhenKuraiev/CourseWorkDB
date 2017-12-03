@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using CourseWorkDB.Models;
+using CourseWorkDB.DAL.Entities;
+using CourseWorkDB.DAL.Interfaces;
 
 namespace CourseWorkDB.Controllers
 {
     public class RestaurantsController : Controller
     {
-        private DeliveryServiceContext db = new DeliveryServiceContext();
+        private readonly IGenericRepository<Restaurant> _db;
+
+        public RestaurantsController(IGenericRepository<Restaurant> db)
+        {
+            _db = db;
+        }
 
         // GET: Restaurants
         public ActionResult Index()
         {
-            return View(db.Restaurants.ToList());
+            return View(_db.Get().ToList());
         }
 
         // GET: Restaurants/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = db.Restaurants.Find(id);
+            Restaurant restaurant = _db.FindById(id);
             if (restaurant == null)
             {
                 return HttpNotFound();
@@ -38,8 +34,8 @@ namespace CourseWorkDB.Controllers
         // GET: Restaurants/Create
         public ActionResult Create()
         {
-            ViewData["dishCategories"] = new SelectList(db.DishCategories, "Id", "Name");
-            ViewData["dishes"] = new SelectList(db.Dishes, "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategories), "Id", "Name");
+            ViewData["dishes"] = new SelectList(_db.GetWithInclude(x => x.Dishes), "Id", "Name");
             return View();
         }
 
@@ -52,8 +48,7 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Restaurants.Add(restaurant);
-                db.SaveChanges();
+                _db.Create(restaurant);
                 return RedirectToAction("Index");
             }
 
@@ -61,19 +56,15 @@ namespace CourseWorkDB.Controllers
         }
 
         // GET: Restaurants/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = db.Restaurants.Find(id);
+            Restaurant restaurant = _db.FindById(id);
             if (restaurant == null)
             {
                 return HttpNotFound();
             }
-            ViewData["dishCategories"] = new SelectList(db.DishCategories, "Id", "Name");
-            ViewData["dishes"] = new SelectList(db.Dishes, "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategories), "Id", "Name");
+            ViewData["dishes"] = new SelectList(_db.GetWithInclude(x => x.Dishes), "Id", "Name");
             return View(restaurant);
         }
 
@@ -84,21 +75,16 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(restaurant).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Update(restaurant);
                 return RedirectToAction("Index");
             }
             return View(restaurant);
         }
 
         // GET: Restaurants/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = db.Restaurants.Find(id);
+            Restaurant restaurant = _db.FindById(id);
             if (restaurant == null)
             {
                 return HttpNotFound();
@@ -111,19 +97,9 @@ namespace CourseWorkDB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Restaurant restaurant = db.Restaurants.Find(id);
-            db.Restaurants.Remove(restaurant);
-            db.SaveChanges();
+            Restaurant restaurant = _db.FindById(id);
+            _db.Remove(restaurant);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

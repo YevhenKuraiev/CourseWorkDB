@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using CourseWorkDB.Models;
+using CourseWorkDB.DAL.Entities;
+using CourseWorkDB.DAL.Interfaces;
 
 namespace CourseWorkDB.Controllers
 {
     public class OrdersController : Controller
     {
-        private DeliveryServiceContext db = new DeliveryServiceContext();
+        private readonly IGenericRepository<Order> _db;
+
+        public OrdersController(IGenericRepository<Order> db)
+        {
+            _db = db;
+        }
 
         // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(_db.Get().ToList());
         }
 
         // GET: Orders/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
+            Order order = _db.FindById(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -38,22 +34,18 @@ namespace CourseWorkDB.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            var users = new SelectList(db.Users, "Id", "Name", "Surname");
-            ViewData["users"] = users;
+            ViewData["users"] = new SelectList(_db.GetWithInclude(x => x.User), "Id", "Name", "Surname");
             return View();
         }
 
         // POST: Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DateTime,Summ,NumberOfSpentBonuses,Total")] Order order)
+        public ActionResult Create(Order order)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                db.SaveChanges();
+                _db.Create(order);
                 return RedirectToAction("Index");
             }
 
@@ -61,13 +53,9 @@ namespace CourseWorkDB.Controllers
         }
 
         // GET: Orders/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
+            Order order = _db.FindById(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -76,29 +64,22 @@ namespace CourseWorkDB.Controllers
         }
 
         // POST: Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DateTime,Summ,NumberOfSpentBonuses,Total")] Order order)
+        public ActionResult Edit(Order order)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Update(order);
                 return RedirectToAction("Index");
             }
             return View(order);
         }
 
         // GET: Orders/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
+            Order order = _db.FindById(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -111,19 +92,9 @@ namespace CourseWorkDB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
+            Order order = _db.FindById(id);
+            _db.Remove(order);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -1,29 +1,29 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Web.Mvc;
-using CourseWorkDB.Models;
+using CourseWorkDB.DAL.Entities;
+using CourseWorkDB.DAL.Interfaces;
 
 namespace CourseWorkDB.Controllers
 {
     public class DishesController : Controller
     {
-        private DeliveryServiceContext db = new DeliveryServiceContext();
+        private readonly IGenericRepository<Dish> _db;
+
+        public DishesController(IGenericRepository<Dish> db)
+        {
+            _db = db;
+        }
 
         // GET: Dishes
         public ActionResult Index()
         {
-            return View(db.Dishes.ToList());
+            return View(_db.Get().ToList());
         }
 
         // GET: Dishes/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dish dish = db.Dishes.Find(id);
+            Dish dish = _db.FindById(id);
             if (dish == null)
             {
                 return HttpNotFound();
@@ -34,8 +34,7 @@ namespace CourseWorkDB.Controllers
         // GET: Dishes/Create
         public ActionResult Create()
         {
-            var dishCategories = new SelectList(db.DishCategories, "Id", "Name");
-            ViewData["dishCategories"] = dishCategories;
+            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategory), "Id", "Name");
             return View();
         }
 
@@ -46,8 +45,7 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Dishes.Add(dish);
-                db.SaveChanges();
+                _db.Create(dish);
                 return RedirectToAction("Index");
             }
 
@@ -55,18 +53,14 @@ namespace CourseWorkDB.Controllers
         }
 
         // GET: Dishes/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dish dish = db.Dishes.Find(id);
+            Dish dish = _db.FindById(id);
             if (dish == null)
             {
                 return HttpNotFound();
             }
-            ViewData["dishCategories"] = new SelectList(db.DishCategories, "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategory), "Id", "Name");
             return View(dish);
         }
 
@@ -77,21 +71,16 @@ namespace CourseWorkDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dish).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Update(dish);
                 return RedirectToAction("Index");
             }
             return View(dish);
         }
 
         // GET: Dishes/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dish dish = db.Dishes.Find(id);
+            Dish dish = _db.FindById(id);
             if (dish == null)
             {
                 return HttpNotFound();
@@ -104,19 +93,9 @@ namespace CourseWorkDB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Dish dish = db.Dishes.Find(id);
-            db.Dishes.Remove(dish);
-            db.SaveChanges();
+            Dish dish = _db.FindById(id);
+            _db.Remove(dish);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

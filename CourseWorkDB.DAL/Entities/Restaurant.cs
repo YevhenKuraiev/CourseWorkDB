@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CourseWorkDB.Models
+namespace CourseWorkDB.DAL.Entities
 {
     public class Restaurant
     {
