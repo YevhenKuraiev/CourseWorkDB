@@ -21,14 +21,14 @@ namespace CourseWorkDB.DAL.Entities
         [Range(1, 5, ErrorMessage = "Рейтинг не может быть меньше 1 и больше 5")]
         public string Rating { get; set; }
 
-        public int IdDishCategory { get; set; }
+        //public int IdDishCategory { get; set; }
 
-        [ForeignKey("IdDishCategory")]
-        public IEnumerable<DishCategory> DishCategories { get; set; }
+        //[ForeignKey("IdDishCategory")]
+        //public IEnumerable<DishCategory> DishCategories { get; set; }
 
-        public int IdDish { get; set; }
+        //public int IdDish { get; set; }
 
-        [ForeignKey("IdDish")]
-        public IEnumerable<Dish> Dishes { get; set; }
+        //[ForeignKey("IdDish")]
+        //public IEnumerable<Dish> Dishes { get; set; }
     }
 }

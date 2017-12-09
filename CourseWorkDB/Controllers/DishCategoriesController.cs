@@ -40,11 +40,9 @@ namespace CourseWorkDB.Controllers
         }
 
         // POST: DishCategories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] DishCategory dishCategory)
+        public ActionResult Create(DishCategory dishCategory)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +67,7 @@ namespace CourseWorkDB.Controllers
         // POST: DishCategories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] DishCategory dishCategory)
+        public ActionResult Edit(DishCategory dishCategory)
         {
             if (ModelState.IsValid)
             {

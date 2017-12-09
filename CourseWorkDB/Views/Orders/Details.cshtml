@@ -14,7 +14,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateTime)
+            @Html.DisplayFor(model => model.DateTime.ToShortDateString())
         </dd>
 
         <dt>
@@ -41,13 +41,6 @@
             @Html.DisplayFor(model => model.Total)
         </dd>
         
-        <dt>
-            @Html.DisplayNameFor(model => model.Dishes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dishes)
-        </dd>
 
     </dl>
 </div>

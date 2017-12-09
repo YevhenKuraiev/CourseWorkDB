@@ -8,16 +8,21 @@ namespace CourseWorkDB.Controllers
     public class DishesController : Controller
     {
         private readonly IGenericRepository<Dish> _db;
+        private readonly IGenericRepository<DishCategory> _dishCategotyRepo;
 
-        public DishesController(IGenericRepository<Dish> db)
+        public DishesController(IGenericRepository<Dish> db,
+            IGenericRepository<DishCategory> dishCategotyRepo)
         {
             _db = db;
+            _dishCategotyRepo = dishCategotyRepo;
         }
 
         // GET: Dishes
         public ActionResult Index()
         {
-            return View(_db.Get().ToList());
+            var list = _db.Get().ToList();
+            list.ForEach(x => x.DishCategory = _dishCategotyRepo.FindById(x.IdDishCategory));
+            return View(list);
         }
 
         // GET: Dishes/Details/5
@@ -34,7 +39,7 @@ namespace CourseWorkDB.Controllers
         // GET: Dishes/Create
         public ActionResult Create()
         {
-            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategory), "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_dishCategotyRepo.Get(), "Id", "Name");
             return View();
         }
 
@@ -60,7 +65,7 @@ namespace CourseWorkDB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategory), "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_dishCategotyRepo.Get(), "Id", "Name");
             return View(dish);
         }
 

@@ -4,6 +4,7 @@ namespace CourseWorkDB.DAL.Entities
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Имя обязательное поле")]

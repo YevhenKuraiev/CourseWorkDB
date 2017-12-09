@@ -8,16 +8,20 @@ namespace CourseWorkDB.Controllers
     public class OrdersController : Controller
     {
         private readonly IGenericRepository<Order> _db;
+        private readonly IGenericRepository<User> _userRepository;
 
-        public OrdersController(IGenericRepository<Order> db)
+        public OrdersController(IGenericRepository<Order> db, IGenericRepository<User> userRepository)
         {
             _db = db;
+            _userRepository = userRepository;
         }
 
         // GET: Orders
         public ActionResult Index()
         {
-            return View(_db.Get().ToList());
+            var list = _db.Get().ToList();
+            list.ForEach(x => x.User = _userRepository.FindById(x.IdUser));
+            return View(list);
         }
 
         // GET: Orders/Details/5
@@ -34,7 +38,7 @@ namespace CourseWorkDB.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewData["users"] = new SelectList(_db.GetWithInclude(x => x.User), "Id", "Name", "Surname");
+            ViewData["users"] = new SelectList(_userRepository.Get(), "Id", "Surname");
             return View();
         }
 
@@ -60,6 +64,7 @@ namespace CourseWorkDB.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["users"] = new SelectList(_userRepository.Get(), "Id", "Surname");
             return View(order);
         }
 

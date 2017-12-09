@@ -27,6 +27,9 @@
             @Html.DisplayNameFor(model => model.Total)
         </th>
         <th>
+            Пользователь
+        </th>
+        <th>
             Возможности
         </th>
     </tr>
@@ -34,7 +37,8 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DateTime)
+            @{ var date = item.DateTime.ToString("MM/dd/yyyy"); }
+            @Html.DisplayFor(modelItem => date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Summ)
@@ -44,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Surname)
         </td>
         <td>
             <a href="@Url.Action("Edit", new {id = item.Id})">

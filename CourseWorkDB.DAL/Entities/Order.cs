@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseWorkDB.DAL.Entities
 {
@@ -10,6 +11,8 @@ namespace CourseWorkDB.DAL.Entities
 
         [Required(ErrorMessage = "Дата обязательное поле")]
         [Display(Name = "Дата")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateTime { get; set; }
 
         [Required(ErrorMessage = "Общая сумма обязательное поле")]
@@ -25,7 +28,11 @@ namespace CourseWorkDB.DAL.Entities
         [Display(Name = "Итоговая сумма")]
         [Range(1, 100000000, ErrorMessage = "Итоговая сумма не может быть отрицательной")]
         public decimal Total { get; set; }
+
+        public int IdUser { get; set; }
+
+        [ForeignKey("IdUser")]
         public User User { get; set; }
-        public virtual IList<Dish> Dishes { get; set; }
+        //public virtual IList<Dish> Dishes { get; set; }
     }
 }

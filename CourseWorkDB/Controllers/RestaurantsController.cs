@@ -8,10 +8,15 @@ namespace CourseWorkDB.Controllers
     public class RestaurantsController : Controller
     {
         private readonly IGenericRepository<Restaurant> _db;
+        private readonly IGenericRepository<Dish> _dishRepository;
+        private readonly IGenericRepository<DishCategory> _dishCategotyRepo;
 
-        public RestaurantsController(IGenericRepository<Restaurant> db)
+        public RestaurantsController(IGenericRepository<Restaurant> db, IGenericRepository<Dish> dishRepository, 
+            IGenericRepository<DishCategory> dishCategotyRepo)
         {
             _db = db;
+            _dishRepository = dishRepository;
+            _dishCategotyRepo = dishCategotyRepo;
         }
 
         // GET: Restaurants
@@ -34,14 +39,12 @@ namespace CourseWorkDB.Controllers
         // GET: Restaurants/Create
         public ActionResult Create()
         {
-            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategories), "Id", "Name");
-            ViewData["dishes"] = new SelectList(_db.GetWithInclude(x => x.Dishes), "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_dishRepository.Get(), "Id", "Name");
+            ViewData["dishes"] = new SelectList(_dishCategotyRepo.Get(), "Id", "Name");
             return View();
         }
 
         // POST: Restaurants/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Restaurant restaurant)
@@ -63,8 +66,8 @@ namespace CourseWorkDB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewData["dishCategories"] = new SelectList(_db.GetWithInclude(x => x.DishCategories), "Id", "Name");
-            ViewData["dishes"] = new SelectList(_db.GetWithInclude(x => x.Dishes), "Id", "Name");
+            ViewData["dishCategories"] = new SelectList(_dishRepository.Get(), "Id", "Name");
+            ViewData["dishes"] = new SelectList(_dishCategotyRepo.Get(), "Id", "Name");
             return View(restaurant);
         }
 

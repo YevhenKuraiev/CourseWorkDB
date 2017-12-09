@@ -24,7 +24,7 @@ namespace CourseWorkDB.DAL.Entities
         public int IdDishCategory { get; set; }
 
         [ForeignKey("IdDishCategory")]
-        public IEnumerable<DishCategory> DishCategory { get; set; }
+        public DishCategory DishCategory { get; set; }
 
 
     }
