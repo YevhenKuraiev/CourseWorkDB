@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CourseWorkDB.DAL.Entities.Dish>
+@{
+    ViewBag.Title = "Блюда со временем приготовления менее 30 минут";
+}
+
+<h2>Блюда со временем приготовления менее 30 минут</h2>
+
+<table class="table table-striped table-responsive table-hover table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CookingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CookingTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+        </tr>
+    }
+
+</table>

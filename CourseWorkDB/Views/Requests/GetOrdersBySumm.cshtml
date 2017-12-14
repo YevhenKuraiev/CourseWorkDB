@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CourseWorkDB.DAL.Entities.Order>
+@{
+    ViewBag.Title = "Заказы с суммой более 500";
+}
+
+<h2>Заказы с суммой более 500</h2>
+
+<table class="table table-striped table-responsive table-hover table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfSpentBonuses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @{ var date = item.DateTime.ToString("MM/dd/yyyy"); }
+                @Html.DisplayFor(modelItem => date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfSpentBonuses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+
+</table>

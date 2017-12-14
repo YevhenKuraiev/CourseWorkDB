@@ -2,43 +2,47 @@
     ViewBag.Title = "Main Page";
 }
 <body>
-    <table class="table table-striped table-responsive table-bordered" style="margin-top: 30px">
-        <tr>
-            <th style="text-align: center">
-                <a href="@Url.Action("Index", "Users")" style="font-size: 18pt">Пользователи</a>
-            </th>
-            <th style="text-align: center">
-                <a href="@Url.Action("Index", "Restaurants")" style="font-size: 18pt">Рестораны</a>
-            </th>
-            <th style="text-align: center">
-                <a href="@Url.Action("Index", "Dishes")" style="font-size: 18pt">Блюда</a>
-            </th>
-            <th style="text-align: center">
-                <a href="@Url.Action("Index", "DishCategories")" style="font-size: 18pt">Категории блюд</a>
-            </th>
-            <th style="text-align: center">
-                <a href="@Url.Action("Index", "Orders")" style="font-size: 18pt">Заказы</a>
-            </th>
-        </tr>
+<table class="table table-striped table-responsive table-bordered" style="margin-top: 30px">
+    <tr>
+        <th style="text-align: center">
+            <a href="@Url.Action("Index", "Users")" style="font-size: 18pt">Пользователи</a>
+        </th>
+        <th style="text-align: center">
+            <a href="@Url.Action("Index", "Restaurants")" style="font-size: 18pt">Рестораны</a>
+        </th>
+        <th style="text-align: center">
+            <a href="@Url.Action("Index", "Dishes")" style="font-size: 18pt">Блюда</a>
+        </th>
+        <th style="text-align: center">
+            <a href="@Url.Action("Index", "DishCategories")" style="font-size: 18pt">Категории блюд</a>
+        </th>
+        <th style="text-align: center">
+            <a href="@Url.Action("Index", "Orders")" style="font-size: 18pt">Заказы</a>
+        </th>
+    </tr>
 
-        <tr>
-            <td style="text-align: center">
-                <img src="../../Images/user.png" alt="" width="150" height="150"/>
-            </td>
-            <td style="text-align: center">
-                <img src="../../Images/restaurants.jpg" alt="" width="150" height="150"/>
-            </td>
-            <td style="text-align: center">
-                <img src="../../Images/dish.jpg" alt="" width="150" height="150"/>
-            </td>
-            <td style="text-align: center">
-                <img src="../../Images/category.png" alt="" width="150" height="150"/>
-            </td>
-            <td style="text-align: center">
-                <img src="../../Images/order.png" alt="" width="150" height="150"/>
-            </td>
-        </tr>
-    </table>
+    <tr>
+        <td style="text-align: center">
+            <img src="../../Images/user.png" alt="" width="150" height="150"/>
+        </td>
+        <td style="text-align: center">
+            <img src="../../Images/restaurants.jpg" alt="" width="150" height="150"/>
+        </td>
+        <td style="text-align: center">
+            <img src="../../Images/dish.jpg" alt="" width="150" height="150"/>
+        </td>
+        <td style="text-align: center">
+            <img src="../../Images/category.png" alt="" width="150" height="150"/>
+        </td>
+        <td style="text-align: center">
+            <img src="../../Images/order.png" alt="" width="150" height="150"/>
+        </td>
+    </tr>
+</table>
+<hr />
+<a href="@Url.Action("Index", "Requests")" style="font-size: 18pt; margin-left: 500px">
+   Запросы
+</a>
 </body>
 
 

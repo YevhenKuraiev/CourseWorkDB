@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <hr />
+    <a href="@Url.Action("GetUsersBySpentMoney", "Requests")" style="font-size: 18pt">
+        Вывести список пользователей с количеством потраченных денег больше 1000
+    </a>
+    <hr/>
+    <a href="@Url.Action("GetRestarauntsByRaiting", "Requests")" style="font-size: 18pt">
+        Вывести список ресторанов с рейтингом более 3
+    </a>
+    <hr/>
+    <a href="@Url.Action("GetOrdersBySumm", "Requests")" style="font-size: 18pt">
+        Вывести список заказов с суммой более 500
+    </a>
+    <hr/>
+    <a href="@Url.Action("GetDishesByTimeCooking", "Requests")" style="font-size: 18pt">
+        Вывести список блюд с временем приготовления менее 30 минут
+    </a>
+    <hr/>
+    <a href="@Url.Action("GetUsersByDiscountPercent", "Requests")" style="font-size: 18pt">
+        Вывести список пользователей у которых скидка от 25% до 60%
+    </a>
+    <hr/>
+</div>
+

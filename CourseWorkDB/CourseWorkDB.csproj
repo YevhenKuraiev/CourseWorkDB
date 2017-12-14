@@ -163,6 +163,7 @@
     <Compile Include="Controllers\DishesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,6 +192,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Images\category.png" />
     <Content Include="Images\dish.jpg" />
@@ -249,6 +251,12 @@
     <Content Include="Views\DishCategories\Details.cshtml" />
     <Content Include="Views\DishCategories\Edit.cshtml" />
     <Content Include="Views\DishCategories\Index.cshtml" />
+    <Content Include="Views\Requests\Index.cshtml" />
+    <Content Include="Views\Requests\GetUsersBySpentMoney.cshtml" />
+    <Content Include="Views\Requests\GetRestarauntsByRaiting.cshtml" />
+    <Content Include="Views\Requests\GetOrdersBySumm.cshtml" />
+    <Content Include="Views\Requests\GetDishesByTimeCooking.cshtml" />
+    <Content Include="Views\Requests\GetUsersByDiscountPercent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

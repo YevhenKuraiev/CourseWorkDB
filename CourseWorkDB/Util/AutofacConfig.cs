@@ -19,7 +19,7 @@ namespace CourseWorkDB.Util
 
             // регистрируем споставление типов
             builder.RegisterGeneric(typeof(EFGenericRepository<>)).As(typeof(IGenericRepository<>))
-                .WithParameter("context", new DeliveryServiceContext());
+                .WithParameter("context", new DeliveryServiceContext()).InstancePerDependency();
 
             // создаем новый контейнер с теми зависимостями, которые определены выше
             var container = builder.Build();

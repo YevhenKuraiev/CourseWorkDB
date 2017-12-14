@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CourseWorkDB.DAL.Entities.Restaurant>
+@{
+    ViewBag.Title = "Рестораны с рейтингом более 3";
+}
+
+<h2>Рестораны с рейтингом более 3</h2>
+
+<table class="table table-striped table-responsive table-hover table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adrress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adrress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+        </tr>
+    }
+
+</table>
